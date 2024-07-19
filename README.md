@@ -25,7 +25,7 @@ Los endpoints de la API implementados fueron:
 - Se manejaron los errores adecuadamente, como el caso de libro no encontrado.
 
 ### Base de Datos
-- Se empleó una base de datos H2 (en memoria) para pruebas.
+- Se empleó una base de datos PostgreSql.
 
 ### Documentación
 - Se documentó el proyecto en `README.md`.
