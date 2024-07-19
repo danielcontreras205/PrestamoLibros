@@ -22,7 +22,6 @@ Los endpoints de la API implementados fueron:
 ### Backend
 - Se utilizó Spring Boot para desarrollar la aplicación.
 - Se implementó la arquitectura por capas.
-- Se validaron los datos de entrada, asegurando que el título y el autor no estuvieran vacíos.
 - Se manejaron los errores adecuadamente, como el caso de libro no encontrado.
 
 ### Base de Datos
@@ -30,20 +29,12 @@ Los endpoints de la API implementados fueron:
 
 ### Documentación
 - Se documentó el proyecto en `README.md`.
-- Se implementó Swagger para la documentación de la API REST (opcional pero valorado).
-
-## Instrucciones
-
-1. Se clonó el repositorio.
-2. Se implementó la solución según los requisitos.
-3. Se subió el código a un repositorio en GitHub.
-4. Se proporcionó el enlace del repositorio para la evaluación.
+- Se implementó Swagger para la documentación de la API REST.
 
 ## Criterios de Evaluación
 
 - La funcionalidad CRUD se completó correctamente.
 - El código fue estructurado y organizado adecuadamente.
 - Se utilizó Spring Boot y JPA de manera efectiva.
-- El manejo de errores y validaciones fue de alta calidad.
 - La documentación en `README.md` fue clara y detallada.
-- (Opcional) Se utilizó Swagger para la documentación de la API.
+- Se utilizó Swagger para la documentación de la API.

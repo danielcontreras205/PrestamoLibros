@@ -30,27 +30,27 @@ public class LibroController {
     @Autowired
     private LibrosService librosService;
     
-    @PostMapping("/crearLibro")
+    @PostMapping("/books")
     public ResponseEntity<LibrosDTO> save(@RequestBody LibrosDTO librosDTO) {
         return new ResponseEntity<>(librosService.save(librosDTO), HttpStatus.CREATED);
     }
-    @GetMapping("/listarLibros")
+    @GetMapping("/books")
     public ResponseEntity<List<LibrosDTO>> getAll() {
         return new ResponseEntity<>(librosService.getAll(), HttpStatus.OK);
     }
     
-    @GetMapping("/GetLibro/{id}")
+    @GetMapping("/books/{id}")
     public ResponseEntity<Optional<LibrosDTO>> getLibro(@PathVariable("id") int custumerId){
         return new ResponseEntity<>(librosService.getLibro(custumerId), HttpStatus.OK);
     }
     
-    @DeleteMapping("/eliminarLibro/{id}")
+    @DeleteMapping("/books/{id}")
     public ResponseEntity<Boolean> deleteLibro(@PathVariable("id") int custumerId){
         boolean isDeleted = librosService.deleteLibro(custumerId);
         return new ResponseEntity<>(isDeleted, HttpStatus.OK);
     }
     
-    @PutMapping("/UpdateLibro/{id}")
+    @PutMapping("/books/{id}")
     public ResponseEntity<LibrosDTO> UpdateLibro(@PathVariable("id") int custumerId, @RequestBody LibrosDTO LibrosDTO){
         LibrosDTO.setLibroID(custumerId);
         return new ResponseEntity<>(librosService.update(LibrosDTO), HttpStatus.CREATED);

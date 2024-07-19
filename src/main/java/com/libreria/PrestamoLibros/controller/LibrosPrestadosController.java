@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LibrosPrestadosController {
     @Autowired
     private LibrosPrestadosService librosPrestadosService;
-    @PostMapping("/crearPrestamo")
+    @PostMapping("/prestamos")
     public ResponseEntity<String> save(@RequestBody LibrosPrestadosDTO librosPrestadosDTO) {
         return new ResponseEntity<>(librosPrestadosService.save(librosPrestadosDTO), HttpStatus.CREATED);
     }

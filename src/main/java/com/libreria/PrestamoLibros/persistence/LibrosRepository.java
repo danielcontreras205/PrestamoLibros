@@ -9,6 +9,7 @@ import com.libreria.PrestamoLibros.domain.repository.LibrosDTORepository;
 import com.libreria.PrestamoLibros.persistence.crud.LibrosCrudRepository;
 import com.libreria.PrestamoLibros.persistence.entity.Libros;
 import com.libreria.PrestamoLibros.persistence.mapper.LibrosMapper;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class LibrosRepository implements LibrosDTORepository{
     }
 
     @Override
-    public LibrosDTO save(LibrosDTO librosDTO) {
+    public LibrosDTO save(@Valid LibrosDTO librosDTO) {
         Libros libros = mapper.toEntity(librosDTO);
         return mapper.toDTO(librosCrudRepository.save(libros));
     }

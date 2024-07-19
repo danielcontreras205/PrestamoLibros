@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,8 +34,11 @@ public class Libros {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "libroID")
     private int libroID;
+    @NotBlank(message = "El título no puede estar vacío")
     @Column(name = "titulo")
     private String titulo;
+    @NotBlank(message = "El autor no puede estar vacío")
+    @Column(name = "autor")
     private String autor;
     private String anoPublicacion;
     private String isbn;
