@@ -1,2 +1,49 @@
-# PrestamoLibros
-APIRest
+# Prueba Técnica: CRUD con Spring Boot
+
+## Descripción del Proyecto
+
+Se desarrolló una aplicación CRUD (Create, Read, Update, Delete) utilizando Spring Boot para gestionar préstamos de libros. La aplicación maneja tres tipos de personas para el préstamo de libros:
+
+- **Afiliado:** Puede tener un libro prestado hasta 10 días.
+- **Empleado:** Puede tener un libro prestado hasta 7 días.
+- **Invitado:** Puede tener un libro prestado hasta 5 días y solo un préstamo activo a la vez.
+
+Los endpoints de la API implementados fueron:
+
+- **POST /books:** Se creó un endpoint para añadir un nuevo libro.
+- **GET /books:** Se implementó un endpoint para obtener todos los libros.
+- **GET /books/{id}:** Se desarrolló un endpoint para obtener un libro por ID.
+- **PUT /books/{id}:** Se creó un endpoint para actualizar un libro existente.
+- **DELETE /books/{id}:** Se desarrolló un endpoint para eliminar un libro por ID.
+- **POST /prestamos:** Se implementó un endpoint para crear un préstamo.
+
+## Requisitos Técnicos
+
+### Backend
+- Se utilizó Spring Boot para desarrollar la aplicación.
+- Se implementó la arquitectura por capas.
+- Se validaron los datos de entrada, asegurando que el título y el autor no estuvieran vacíos.
+- Se manejaron los errores adecuadamente, como el caso de libro no encontrado.
+
+### Base de Datos
+- Se empleó una base de datos H2 (en memoria) para pruebas.
+
+### Documentación
+- Se documentó el proyecto en `README.md`.
+- Se implementó Swagger para la documentación de la API REST (opcional pero valorado).
+
+## Instrucciones
+
+1. Se clonó el repositorio.
+2. Se implementó la solución según los requisitos.
+3. Se subió el código a un repositorio en GitHub.
+4. Se proporcionó el enlace del repositorio para la evaluación.
+
+## Criterios de Evaluación
+
+- La funcionalidad CRUD se completó correctamente.
+- El código fue estructurado y organizado adecuadamente.
+- Se utilizó Spring Boot y JPA de manera efectiva.
+- El manejo de errores y validaciones fue de alta calidad.
+- La documentación en `README.md` fue clara y detallada.
+- (Opcional) Se utilizó Swagger para la documentación de la API.
