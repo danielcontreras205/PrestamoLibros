@@ -14,9 +14,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 /**
  *
@@ -25,7 +24,9 @@ import lombok.NoArgsConstructor;
 //------------------------------lombok------------------------------------------
 @Data // JPA - crea los get y set 
 @AllArgsConstructor // constructor con todos los argumentos
-@NoArgsConstructor // constructor sin argumentos 
+@NoArgsConstructor // constructor sin argumentos
+@Getter
+@Setter
 //-------------------------------------------------------------------------
 @Entity
 @Table(name = "librosPrestados")

@@ -6,12 +6,16 @@ package com.libreria.PrestamoLibros.domain.dto;
 
 import java.util.Date;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author AsRock
  */
 @Data
+@Getter
+@Setter
 public class ClienteDTO {
     
     private int clienteID;
