@@ -45,4 +45,7 @@ public class Cliente {
     private Date creacion;
     @Temporal(TemporalType.DATE)
     private Date edito;
+    @ManyToOne
+    @JoinColumn(name = "usuarioId")
+    private Usuario usuario;
 }

@@ -24,7 +24,8 @@ public interface ClienteMapper {
         @Mapping(source = "tipoCliente.tipoClienteID", target = "tipoClienteID"),
         @Mapping(source = "estado.estadoID", target = "estadoID"), 
         @Mapping(source = "creacion", target = "creacion"),
-        @Mapping(source = "edito", target = "edito")
+        @Mapping(source = "edito", target = "edito"),
+        @Mapping(source = "usuario.usuarioId", target = "usuarioId")
     })
     ClienteDTO toDTO(Cliente cliente);
     List<ClienteDTO>  toDTOs(List<Cliente> cliente);
@@ -36,7 +37,8 @@ public interface ClienteMapper {
         @Mapping(source = "tipoClienteID", target = "tipoCliente.tipoClienteID"), 
         @Mapping(source = "estadoID", target = "estado.estadoID"), 
         @Mapping(source = "creacion", target = "creacion"),
-        @Mapping(source = "edito", target = "edito")
+        @Mapping(source = "edito", target = "edito"),
+        @Mapping(source = "usuarioId", target = "usuario.usuarioId")
     })
     Cliente toEntity(ClienteDTO clienteDTO);
 }

@@ -3,7 +3,14 @@ package com.libreria.PrestamoLibros.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.PasswordManagementDsl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -20,11 +27,33 @@ public class SecurityConfig {
                 .cors().and() // permite la comunicacion de 2 origenes diferentes EJEMPLO: localHost:8080 y front 42000
                 .authorizeHttpRequests()// para autorizar las peticiones HTTP
                 .requestMatchers(HttpMethod.GET, "/libro/**").permitAll() //permite consumir sin autorizacion pero solo los GET
+                .requestMatchers(HttpMethod.POST, "/libro/**").hasRole("ADMINISTRADOR") // solo los admins pueden hacer post en libros
+                .requestMatchers(HttpMethod.GET, "/cliente/**").hasAnyRole("ADMINISTRADOR","CUSTOMER") // los que tenga roles pueden hacer get en clientes
                 .requestMatchers(HttpMethod.PUT).denyAll() // denega todos los metodos put
                 .anyRequest() // cualquier peticion que llegue
                 .authenticated()// debe estar auntenticado
                 .and() // y
                 .httpBasic(); // debe estar en la metologia Basic
         return httpSecurity.build();
+    }
+    /*@Bean
+    public UserDetailsService memoryUser(){ //Crear usuario en memoria
+        UserDetails admin = User.builder()
+                .username("admin") //usuario
+                .password(passwordEncoder().encode("admin")) // contraseña encriptada
+                .roles("ADMINISTRADOR")
+                .build();
+
+        UserDetails custumer = User.builder()
+                .username("custumer") //usuario
+                .password(passwordEncoder().encode("custumer123")) // contraseña encriptada
+                .roles("CUSTOMER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin,custumer); // retorna el usuario
+    }*/
+    @Bean
+    public PasswordEncoder passwordEncoder(){ // metodo para encriptar la contraseña
+        return new BCryptPasswordEncoder();
     }
 }

@@ -25,5 +25,6 @@ public class ClienteDTO {
     private int estadoID; 
     private Date creacion;
     private Date edito;
+    private int usuarioId;
     
 }
