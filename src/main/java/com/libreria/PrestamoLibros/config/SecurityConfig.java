@@ -26,9 +26,9 @@ public class SecurityConfig {
                 .csrf().disable() // permite seguridad pero al colocar JWT precenta inconvenientes en la aplicacion
                 .cors().and() // permite la comunicacion de 2 origenes diferentes EJEMPLO: localHost:8080 y front 42000
                 .authorizeHttpRequests()// para autorizar las peticiones HTTP
-                .requestMatchers(HttpMethod.GET, "/libro/**").permitAll() //permite consumir sin autorizacion pero solo los GET
-                .requestMatchers(HttpMethod.POST, "/libro/**").hasRole("VIP") // solo los admins pueden hacer post en libros
-                .requestMatchers(HttpMethod.GET, "/cliente/**").hasAnyRole("VIP","ESTANDAR") // los que tenga roles pueden hacer get en clientes
+                .requestMatchers(HttpMethod.GET, "/estado/**").permitAll() //permite consumir sin autorizacion pero solo los GET
+                .requestMatchers(HttpMethod.POST, "/cliente/**").hasRole("Afiliado") // solo los admins pueden hacer post en libros
+                .requestMatchers(HttpMethod.GET, "/libro/**").hasAnyRole("Afiliado","Empleado") // los que tenga roles pueden hacer get en clientes
                 .requestMatchers(HttpMethod.PUT).denyAll() // denega todos los metodos put
                 .anyRequest() // cualquier peticion que llegue
                 .authenticated()// debe estar auntenticado

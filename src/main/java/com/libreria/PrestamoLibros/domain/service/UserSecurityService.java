@@ -26,7 +26,7 @@ public class UserSecurityService implements UserDetailsService {
         return User.builder()
                 .username(usuario.getUsuarioNombre())
                 .password(usuario.getUsuarioContraseña())
-                .roles("ADMINISTRADOR")
+                .roles("Afiliado")
                 .accountLocked(usuario.getUsuarioBloqueado())
                 .disabled(usuario.getUsuarioActivo())
                 .build();
