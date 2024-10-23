@@ -7,6 +7,7 @@ package com.libreria.PrestamoLibros.persistence;
 import com.libreria.PrestamoLibros.domain.dto.ClienteDTO;
 import com.libreria.PrestamoLibros.domain.dto.LibrosDTO;
 import com.libreria.PrestamoLibros.domain.dto.LibrosPrestadosDTO;
+import com.libreria.PrestamoLibros.domain.dto.TipoClienteDTO;
 import com.libreria.PrestamoLibros.domain.repository.LibrosPrestadosDTORepository;
 import com.libreria.PrestamoLibros.persistence.crud.LibrosPrestadosCrudRepository;
 import com.libreria.PrestamoLibros.persistence.entity.Libros;
@@ -30,6 +31,8 @@ public class LibrosPrestadosRepository implements LibrosPrestadosDTORepository{
     private ClienteRepository clienteRepository;
     @Autowired
     private ParametrosLibrosRepository parametrosLibrosRepository;
+    @Autowired
+    private TipoClienteRepository tipoClienteRepository;
     
     @Autowired
     private LibrosPrestadosMapper mapper;
@@ -47,7 +50,10 @@ public class LibrosPrestadosRepository implements LibrosPrestadosDTORepository{
         LibrosPrestados librosPrestados = mapper.toEntity(librosDTO);
         if(librosPrestados != null){
             Optional<ClienteDTO>  clienteDTO = clienteRepository.getCustomer(librosPrestados.getCliente().getClienteID());
-            return validaSiPrestaLibro(clienteDTO,librosPrestados);
+            if(clienteDTO != null){
+                return validaSiPrestaLibro(clienteDTO,librosPrestados);
+            }
+            return "La clase clienteDTO es NULL";
         }else{
             return "La clase librosPrestados es NULL";
         }
@@ -68,49 +74,55 @@ public class LibrosPrestadosRepository implements LibrosPrestadosDTORepository{
     public String validaSiPrestaLibro (Optional<ClienteDTO>  clienteDTO,LibrosPrestados librosPrestados){
         LibrosPrestadosDTO librosPrestadosDTO = null;
         StringBuilder successMessage = new StringBuilder();
-        
-        switch (clienteDTO.get().getTipoClienteID()) {
+        TipoClienteDTO tipoClienteDTO = tipoClienteRepository.tipoCliente(clienteDTO.get().getUsuarioId());
+        if(tipoClienteDTO != null){
+            switch (tipoClienteDTO.getTipoClienteID()) {
                 case 3:
                     if(ValidarSiTieneLibros(clienteDTO)){
                         librosPrestadosDTO = mapper.toDTO(librosPrestadosCrudRepository.save(librosPrestados));
                         if (librosPrestadosDTO != null && librosPrestadosDTO.getClienteID() != 0) {
                             successMessage.append("El préstamo se ha creado exitosamente con el libro con el ID: ")
-                                            .append(librosPrestadosDTO.getLibroID())
-                                            .append("\n")
-                                            .append("con fecha de devolución el día: ")
-                                            .append(parametrosLibrosRepository.fechaDevolucion(librosPrestadosDTO.getClienteID(),librosPrestadosDTO.getLibrosPrestadoID()));
+                                    .append(librosPrestadosDTO.getLibroID())
+                                    .append("\n")
+                                    .append("con fecha de devolución el día: ")
+                                    .append(parametrosLibrosRepository.fechaDevolucion(librosPrestadosDTO.getClienteID(),librosPrestadosDTO.getLibrosPrestadoID()));
                         }
                     }else{
                         parametrosLibrosRepository.prestaLibro(clienteDTO.get().getClienteID());
                         successMessage.append("No puede solicitar más prestamos ya tiene activo uno ")
-                                            .append("\n")
-                                            .append(parametrosLibrosRepository.prestaLibro(clienteDTO.get().getClienteID()));
+                                .append("\n")
+                                .append(parametrosLibrosRepository.prestaLibro(clienteDTO.get().getClienteID()));
                     }
-                break;
+                    break;
                 case 2:
                     librosPrestadosDTO = mapper.toDTO(librosPrestadosCrudRepository.save(librosPrestados));
                     if (librosPrestadosDTO != null && librosPrestadosDTO.getClienteID() != 0) {
                         successMessage.append("El préstamo se ha creado exitosamente con el libro con el ID: ")
-                                        .append(librosPrestadosDTO.getLibroID())
-                                        .append("\n")
-                                        .append("con fecha de devolución el día: ")
-                                        .append(parametrosLibrosRepository.fechaDevolucion(librosPrestadosDTO.getClienteID(),librosPrestadosDTO.getLibrosPrestadoID()));
+                                .append(librosPrestadosDTO.getLibroID())
+                                .append("\n")
+                                .append("con fecha de devolución el día: ")
+                                .append(parametrosLibrosRepository.fechaDevolucion(librosPrestadosDTO.getClienteID(),librosPrestadosDTO.getLibrosPrestadoID()));
                     }
-                break;
+                    break;
                 case 1:
                     librosPrestadosDTO = mapper.toDTO(librosPrestadosCrudRepository.save(librosPrestados));
                     if (librosPrestadosDTO != null && librosPrestadosDTO.getClienteID() != 0) {
                         successMessage.append("El préstamo se ha creado exitosamente con el libro con el ID: ")
-                                        .append(librosPrestadosDTO.getLibroID())
-                                        .append("\n")
-                                        .append("con fecha de devolución el día: ")
-                                        .append(parametrosLibrosRepository.fechaDevolucion(librosPrestadosDTO.getClienteID(),librosPrestadosDTO.getLibrosPrestadoID()));
+                                .append(librosPrestadosDTO.getLibroID())
+                                .append("\n")
+                                .append("con fecha de devolución el día: ")
+                                .append(parametrosLibrosRepository.fechaDevolucion(librosPrestadosDTO.getClienteID(),librosPrestadosDTO.getLibrosPrestadoID()));
                     }
-                break;
+                    break;
                 default:
                     successMessage.append("Error al crear el préstamo");
             }
-        return successMessage.toString();
+            return successMessage.toString();
+        }else{
+            successMessage.append("Error al buscar tipo de usuario");
+            return successMessage.toString();
+        }
+
     }
     public Boolean ValidarSiTieneLibros(Optional<ClienteDTO>  clienteDTO){
         boolean presta = true;

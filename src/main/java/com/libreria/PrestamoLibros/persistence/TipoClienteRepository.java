@@ -47,4 +47,9 @@ public class TipoClienteRepository implements TipoClienteDTORepository{
     public Boolean delete(int tipoClienteID) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public TipoClienteDTO tipoCliente(int usuarioId) {
+        return mapper.toDTO(tipoClienteCrudRepository.tipoCliente(usuarioId));
+    }
 }

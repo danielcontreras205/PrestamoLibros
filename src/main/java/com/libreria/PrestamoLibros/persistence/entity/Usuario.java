@@ -27,6 +27,10 @@ public class Usuario {
     private Date usuarioCreacion;
     @Temporal(TemporalType.DATE)
     private Date usuarioEdito;
+    @ManyToOne
+    @JoinColumn(name = "tipoClienteID")
+    private TipoCliente tipoCliente;
+
 
 }
 

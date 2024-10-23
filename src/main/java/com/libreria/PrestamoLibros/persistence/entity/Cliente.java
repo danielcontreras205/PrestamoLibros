@@ -36,9 +36,6 @@ public class Cliente {
     private String nombre;
     private String apellido;
     @ManyToOne
-    @JoinColumn(name = "tipoClienteID")
-    private TipoCliente tipoCliente;
-    @ManyToOne
     @JoinColumn(name = "estadoID")
     private Estado estado;
     @Temporal(TemporalType.DATE)

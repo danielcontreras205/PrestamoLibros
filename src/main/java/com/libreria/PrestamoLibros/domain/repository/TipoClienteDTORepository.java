@@ -6,6 +6,7 @@ package com.libreria.PrestamoLibros.domain.repository;
 
 import com.libreria.PrestamoLibros.domain.dto.TipoClienteDTO;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -16,4 +17,5 @@ public interface TipoClienteDTORepository {
     TipoClienteDTO save(TipoClienteDTO tipoClienteDTO);
     TipoClienteDTO update(TipoClienteDTO tipoClienteDTO);
     Boolean delete(int tipoClienteID);
+    TipoClienteDTO tipoCliente(int usuarioId);
 }

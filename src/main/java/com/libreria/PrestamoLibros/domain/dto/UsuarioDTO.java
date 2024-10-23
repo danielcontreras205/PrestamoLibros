@@ -20,4 +20,6 @@ public class UsuarioDTO {
     private  Boolean usuarioBloqueado;
     private Date usuarioCreacion;
     private Date usuarioEdito;
+    private int tipoClienteID;
+
 }

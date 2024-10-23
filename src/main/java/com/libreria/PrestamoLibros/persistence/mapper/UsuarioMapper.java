@@ -18,7 +18,8 @@ public interface UsuarioMapper {
             @Mapping(source = "usuarioActivo", target = "usuarioActivo"),
             @Mapping(source = "usuarioBloqueado", target = "usuarioBloqueado"),
             @Mapping(source = "usuarioCreacion", target = "usuarioCreacion"),
-            @Mapping(source = "usuarioEdito", target = "usuarioEdito")
+            @Mapping(source = "usuarioEdito", target = "usuarioEdito"),
+            @Mapping(source = "tipoCliente.tipoClienteID", target = "tipoClienteID")
     })
     UsuarioDTO toDTO(Usuario usuario);
     List<UsuarioDTO> toDTOs(List<Usuario> usuario);
@@ -30,7 +31,8 @@ public interface UsuarioMapper {
             @Mapping(source = "usuarioActivo", target = "usuarioActivo"),
             @Mapping(source = "usuarioBloqueado", target = "usuarioBloqueado"),
             @Mapping(source = "usuarioCreacion", target = "usuarioCreacion"),
-            @Mapping(source = "usuarioEdito", target = "usuarioEdito")
+            @Mapping(source = "usuarioEdito", target = "usuarioEdito"),
+            @Mapping(source = "tipoClienteID", target = "tipoCliente.tipoClienteID")
     })
     Usuario toEntity(UsuarioDTO usuarioDTO);
 }

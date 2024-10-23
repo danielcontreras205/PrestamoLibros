@@ -21,7 +21,6 @@ public class ClienteDTO {
     private int clienteID;
     private String nombre;
     private String apellido;
-    private int tipoClienteID;
     private int estadoID; 
     private Date creacion;
     private Date edito;

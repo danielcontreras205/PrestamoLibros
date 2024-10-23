@@ -22,7 +22,8 @@ public interface ParametrosLibrosCrudRepository extends CrudRepository<Parametro
                 DATE(lipr.fecha_prestamo + INTERVAL '1 day' * pali.dias_prestamo) AS fecha_devolucion
             FROM
                 cliente clie
-                INNER JOIN tipo_cliente ticl ON clie.tipo_clienteid = ticl.tipo_clienteid
+                inner join usuario usua on clie.usuario_id = usua.usuario_id
+                inner join tipo_cliente ticl ON  usua.tipo_clienteid = ticl.tipo_clienteid
                 INNER JOIN parametros_libros pali ON ticl.tipo_clienteid = pali.tipo_clienteid
                 INNER JOIN libros_prestados lipr ON clie.clienteid = lipr.clienteid
                 INNER JOIN libros libr ON lipr.libroid = libr.libroid
@@ -36,7 +37,8 @@ public interface ParametrosLibrosCrudRepository extends CrudRepository<Parametro
             	'ID del Libro: ' ||libr.libroid || ' Titulo del libro:' || libr.titulo AS texto
             FROM
             	cliente clie
-            	inner join tipo_cliente ticl ON  clie.tipo_clienteid = ticl.tipo_clienteid
+            	inner join usuario usua on clie.usuario_id = usua.usuario_id
+             	inner join tipo_cliente ticl ON  usua.tipo_clienteid = ticl.tipo_clienteid
             	inner join parametros_libros pali ON ticl.tipo_clienteid = pali.tipo_clienteid
             	inner join libros_prestados lipr ON clie.clienteid = lipr.clienteid
             	inner join libros libr on lipr.libroid = libr.libroid
