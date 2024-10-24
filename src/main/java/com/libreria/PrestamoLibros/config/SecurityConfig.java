@@ -3,6 +3,7 @@ package com.libreria.PrestamoLibros.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.PasswordManagementDsl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -14,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -28,8 +30,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests()// para autorizar las peticiones HTTP
                 .requestMatchers(HttpMethod.GET, "/estado/**").permitAll() //permite consumir sin autorizacion pero solo los GET
                 .requestMatchers(HttpMethod.POST, "/cliente/**").hasRole("Afiliado") // solo los admins pueden hacer post en libros
-                .requestMatchers(HttpMethod.GET, "/libro/**").hasAnyRole("Afiliado","Empleado") // los que tenga roles pueden hacer get en clientes
+                //.requestMatchers(HttpMethod.POST,"/libro/books").hasAuthority("libro_books","ROLE_Afiliado") // el que tenga el permiso puede hacer cunsumo de este endPoint
+                .requestMatchers(HttpMethod.POST,"/libro/books").hasAnyAuthority("libro_books","ROLE_Afiliado")
+                .requestMatchers("/libro/**").hasAnyRole("Afiliado", "Empleado")  // los que tenga roles pueden hacer get en clientes
                 .requestMatchers(HttpMethod.PUT).denyAll() // denega todos los metodos put
+                .requestMatchers(HttpMethod.DELETE).denyAll() // denega todos los metodos Delete
                 .anyRequest() // cualquier peticion que llegue
                 .authenticated()// debe estar auntenticado
                 .and() // y

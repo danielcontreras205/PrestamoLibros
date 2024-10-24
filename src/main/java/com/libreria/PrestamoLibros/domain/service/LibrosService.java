@@ -7,6 +7,7 @@ package com.libreria.PrestamoLibros.domain.service;
 import com.libreria.PrestamoLibros.domain.dto.LibrosDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import com.libreria.PrestamoLibros.domain.repository.LibrosDTORepository;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class LibrosService {
     public List<LibrosDTO> getAll() {
         return librosRepository.getAll();
     }
+    @Secured("ROLE_Afiliado")
     public LibrosDTO save(LibrosDTO librosDTO){
         return librosRepository.save(librosDTO);
     }
