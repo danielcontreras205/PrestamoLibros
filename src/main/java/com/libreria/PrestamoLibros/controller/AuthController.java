@@ -34,7 +34,8 @@ public class AuthController {
         System.out.println(authentication.isAuthenticated());
         System.out.println(authentication.getPrincipal());
 
-        String jwt = this.jwtUtil.create(loginDTO.getUsername());
+        String jwt = this.jwtUtil.create(loginDTO.getUsername()); // crea el tocket
+
 
         return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,jwt).build();
     }

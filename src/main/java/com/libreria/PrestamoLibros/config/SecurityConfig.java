@@ -1,25 +1,30 @@
 package com.libreria.PrestamoLibros.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.PasswordManagementDsl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
+    private final JwtFilter jwtFilter;
+
+    @Autowired
+    public SecurityConfig(JwtFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 
@@ -30,6 +35,7 @@ public class SecurityConfig {
         httpSecurity
                 .csrf().disable() // permite seguridad pero al colocar JWT precenta inconvenientes en la aplicacion
                 .cors().and() // permite la comunicacion de 2 origenes diferentes EJEMPLO: localHost:8080 y front 42000
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //se quitan las sessiones
                 .authorizeHttpRequests()// para autorizar las peticiones HTTP
                 .requestMatchers("auntenticar/usuario/**").permitAll() // permite consumir sin autenticacion
                 .requestMatchers(HttpMethod.GET, "/estado/**").permitAll() //permite consumir sin autorizacion pero solo los GET
@@ -42,7 +48,10 @@ public class SecurityConfig {
                 .anyRequest() // cualquier peticion que llegue
                 .authenticated()// debe estar auntenticado
                 .and() // y
-                .httpBasic(); // debe estar en la metologia Basic
+                // se quita para colocar el filtro de JWT .httpBasic(); // debe estar en la metologia Basic
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+
         return httpSecurity.build();
     }
     /*@Bean
@@ -63,7 +72,7 @@ public class SecurityConfig {
     }*/
 
     /**
-     * Configuracion para JWT
+     * Configuracion para JWT, este puede ir en la capa de servisios
      * @param configuration
      * @return
      */

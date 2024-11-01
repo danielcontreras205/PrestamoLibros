@@ -2,6 +2,7 @@ package com.libreria.PrestamoLibros.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -18,5 +19,33 @@ public class JwtUtil {
                 .withIssuedAt(new Date()) // fecha de creacion
                 .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(15))) // fecha de expiracion
                 .sign(algorithm);
+    }
+
+    /**
+     * metodo para validar si el JWT es valido
+     * @param jwt
+     * @return Boolean
+     */
+    public boolean isValid(String jwt){
+        try {
+            JWT.require(algorithm)
+                    .build()
+                    .verify(jwt);
+            return true;
+        }catch (JWTVerificationException ex){
+            return false;
+        }
+    }
+
+    /**
+     * retorna la informacion interna del JWT
+     * @param jwt
+     * @return retorna un String
+     */
+    public  String gatUserName(String jwt){
+        return JWT.require(algorithm)
+                .build()
+                .verify(jwt)
+                .getSubject();
     }
 }
