@@ -29,7 +29,7 @@ public class UserSecurityService implements UserDetailsService {
         Usuario usuario = this.usuarioRepository.findByUsuarioNombre(username)
                 .orElseThrow(() -> new UsernameNotFoundException("usuario: " + username + "no encontrado."));
 
-        System.out.println(usuario.toString());
+        System.out.println("Informacion de usuario: " + usuario.toString());
 
         // se crea un arreglo, esto es por si un usuario tiene varios roles, pero en esta api la logica es que un usuario solo tiene un rol
         String[] roles = new String[] { usuario.getTipoCliente().getNombreTipo() };

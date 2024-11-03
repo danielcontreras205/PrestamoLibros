@@ -17,7 +17,7 @@ public class JwtUtil {
                 .withSubject(username) //el asunto es el usuario
                 .withIssuer("BooksChinauta") // creador del tocken
                 .withIssuedAt(new Date()) // fecha de creacion
-                .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(15))) // fecha de expiracion
+                .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1))) // fecha de expiracion
                 .sign(algorithm);
     }
 

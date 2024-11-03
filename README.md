@@ -26,6 +26,7 @@ Los endpoints de la API implementados fueron:
 
 ### Base de Datos
 - Se empleó una base de datos PostgreSql.
+- ![Diagrama de la Base de Datos](https://danielcontreras205.github.io/assets/titels/DBprestamoLibros.png)
 
 ### Documentación
 - Se documentó el proyecto en `README.md`.

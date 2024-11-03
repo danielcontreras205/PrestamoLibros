@@ -31,8 +31,8 @@ public class AuthController {
         UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
         Authentication authentication = this.authenticationManager.authenticate(login);
 
-        System.out.println(authentication.isAuthenticated());
-        System.out.println(authentication.getPrincipal());
+        System.out.println("Informacion de la autenticacion: " + authentication.isAuthenticated());
+        System.out.println("Informacion de la autenticacion: " +authentication.getPrincipal());
 
         String jwt = this.jwtUtil.create(loginDTO.getUsername()); // crea el tocket
 
