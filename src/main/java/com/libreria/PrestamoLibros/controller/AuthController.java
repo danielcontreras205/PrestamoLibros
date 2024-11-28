@@ -27,7 +27,8 @@ public class AuthController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<Void> login(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO){
+        //public ResponseEntity<Void> login(@RequestBody LoginDTO loginDTO){
         UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
         Authentication authentication = this.authenticationManager.authenticate(login);
 
@@ -36,8 +37,8 @@ public class AuthController {
 
         String jwt = this.jwtUtil.create(loginDTO.getUsername()); // crea el tocket
 
-
-        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,jwt).build();
+        //return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,jwt).build();
+        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,jwt).body(jwt);
     }
 
 }
