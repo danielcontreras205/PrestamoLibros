@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .cors().and() // permite la comunicacion de 2 origenes diferentes EJEMPLO: localHost:8080 y front 42000
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() //se quitan las sessiones
                 .authorizeHttpRequests()// para autorizar las peticiones HTTP
-                .requestMatchers("auntenticar/usuario/**").permitAll() // permite consumir sin autenticacion
+                .requestMatchers("/auntenticar/usuario/**").permitAll() // permite consumir sin autenticacion
                 .requestMatchers(HttpMethod.GET, "/estado/**").permitAll() //permite consumir sin autorizacion pero solo los GET
                 .requestMatchers(HttpMethod.POST, "/cliente/**").hasRole("Afiliado") // solo los admins pueden hacer post en libros
                 //.requestMatchers(HttpMethod.POST,"/libro/books").hasAuthority("libro_books","ROLE_Afiliado") // el que tenga el permiso puede hacer cunsumo de este endPoint
